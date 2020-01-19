@@ -9,9 +9,15 @@ struct Rectangle {
 }
 
 // move area fn to a dot-method for the Rectangle struct
+// self is implicitly the type being implemented
+// makes sense, we're extending the type, I think?
 impl Rectangle {
     fn area(&self) -> u32 {
         self.width * self.height
+    }
+
+    fn can_hold(&self, other: &Rectangle) -> bool {
+        self.width > other.width && self.height > other.height
     }
 }
 
@@ -29,6 +35,13 @@ fn main() {
         height: 50,
     };
 
-    println!("the are of the rectangle is {}", rect1.area());
+    println!("the are of rect1 is {}", rect1.area());
     println!("{:?}", rect1);
+
+    let rect2 = Rectangle { width: 10, height: 40 };
+    let rect3 = Rectangle { width: 60, height: 45 };
+
+    println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
+    println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
+
 }
