@@ -12,12 +12,23 @@ struct Rectangle {
 // self is implicitly the type being implemented
 // makes sense, we're extending the type, I think?
 impl Rectangle {
+    // uses self, dot-method
     fn area(&self) -> u32 {
         self.width * self.height
     }
 
+    // uses self, dot-metod
     fn can_hold(&self, other: &Rectangle) -> bool {
         self.width > other.width && self.height > other.height
+    }
+
+    // does NOT use self, associated function (not a method?)
+    // nope, not a method
+    // "They’re still functions, not methods, because they don’t have an 
+    // instance of the struct to work with"
+    // ch05-03-method-syntax
+    fn square(size: u32) -> Rectangle {
+        Rectangle { width: size, height: size }
     }
 }
 
@@ -44,4 +55,6 @@ fn main() {
     println!("Can rect1 hold rect2? {}", rect1.can_hold(&rect2));
     println!("Can rect1 hold rect3? {}", rect1.can_hold(&rect3));
 
+    let sq = Rectangle::square(4);
+    println!("sq is: {:?}", sq);
 }
